@@ -1,10 +1,10 @@
-'use strict';
+"use strict";
 
-var app = require('express').Router();
+var app = require("express").Router();
 
-app.get('/', function (req, res) {
-    res.send("Welcome to sample-project.");
+app.get("/", function(req, res) {
+	req.flash("info", "Welcome");
+	res.send("Welcome to sample-pro1ject.");
 });
-
 
 module.exports = app;
