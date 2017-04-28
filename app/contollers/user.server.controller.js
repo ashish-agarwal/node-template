@@ -21,12 +21,12 @@ exports.registerUser = function (req, res, next) {
 
             res.send(user);
         }).catch(function (err) {
-            return res.status(400).send({
-                success: false,
-                result: {
-                    error: err.message
-                }
-            })
+            err.status = 400;
+            next(err);
+            // return res.status(400).send({
+            //     success: false,
+            //     message: err.message
+            // })
         })
 };
 
@@ -43,12 +43,8 @@ exports.authenticate = function (req, res, next) {
                 tokens: tokens
             })
         }).catch(function (err) {
-            return res.status(400).send({
-                success: false,
-                result: {
-                    error: err.message
-                }
-            })
+            err.status = 400;
+            next(err);
         })
 };
 
@@ -57,12 +53,8 @@ exports.getProfile = function (req, res, next) {
     UserService.getProfile(userObj).then(function (user) {
         res.send(user);
     }).catch(function (err) {
-        return res.status(400).send({
-            success: false,
-            result: {
-                error: err.message
-            }
-        })
+        err.status = 400;
+        next(err);
     })
 };
 
@@ -71,12 +63,8 @@ exports.updateProfile = function (req, res, next) {
     UserService.updateProfile(userObj).then(function (user) {
         res.send(user);
     }).catch(function (err) {
-        return res.status(400).send({
-            success: false,
-            result: {
-                error: err.message
-            }
-        })
+        err.status = 400;
+        next(err);
     })
 };
 
@@ -96,13 +84,8 @@ exports.logout = function (req, res, next) {
             });
 
         }).catch(function (err) {
-            console.log(err)
-            return res.status(400).send({
-                success: false,
-                result: {
-                    error: err.message
-                }
-            })
+            err.status = 400;
+            next(err);
 
         })
     res.send(200)

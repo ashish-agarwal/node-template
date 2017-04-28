@@ -5,11 +5,14 @@ var crypto = require('crypto'),
     mongoose = require('mongoose'),
     Schema = mongoose.Schema;
 
+var uniqueValidator = require('mongoose-unique-validator');
+
 var UserSchema = new Schema({
     code: String,
     firstName: {
         type: String,
         trim: true,
+        required: true
     },
     lastName: {
         type: String,
@@ -51,6 +54,10 @@ var UserSchema = new Schema({
     flags: {},
 }, {
     timestamps: true
+});
+
+UserSchema.plugin(uniqueValidator, {
+    message: '{VALUE} already taken!',
 });
 
 UserSchema.virtual('password').set(function (password) {
