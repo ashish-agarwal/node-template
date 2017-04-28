@@ -6,14 +6,35 @@ var crypto = require('crypto'),
     Schema = mongoose.Schema;
 
 var UserSchema = new Schema({
-    date: Date,
     code: String,
-    name: String,
-    email: String,
+    firstName: {
+        type: String,
+        trim: true,
+    },
+    lastName: {
+        type: String,
+        trim: true,
+    },
+    email: {
+        type: String,
+        unique: true,
+        required: [true, 'Email is required!'],
+        trim: true,
+        validate: {
+            validator(email) {
+                const emailRegex = /^[-a-z0-9%S_+]+(\.[-a-z0-9%S_+]+)*@(?:[a-z0-9-]{1,63}\.){1,125}[a-z]{2,63}$/i;
+                return emailRegex.test(email);
+            },
+            message: '{VALUE} is not a valid email!',
+        },
+    },
     phone: String,
     profilePicture: String,
     role: String,
-    deleted: Boolean,
+    deleted: {
+        type: Boolean,
+        default: false
+    },
     cards: [],
     address: {
         city: String,
@@ -22,9 +43,14 @@ var UserSchema = new Schema({
     },
     hashed_password: String,
     salt: String,
-    disabled: Boolean,
+    disabled: {
+        type: Boolean,
+        default: false
+    },
     disabled_on: Date,
     flags: {},
+}, {
+    timestamps: true
 });
 
 UserSchema.virtual('password').set(function (password) {

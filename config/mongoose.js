@@ -2,11 +2,12 @@
 
 var mongoose = require('mongoose'),
     config = require('./index');
+mongoose.Promise = global.Promise;
 
 // Bootstrap db connection
 var db = mongoose.connect(config.db);
 mongoose.connection.once('open', function callback() {
-    console.log("DB connected" + config.db)
+    console.log("DB connected " + config.db)
 });
 
 mongoose.set('debug', true);
