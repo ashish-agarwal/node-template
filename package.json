@@ -42,7 +42,6 @@
         "serve-favicon": "~2.3.0",
         "shortid": "^2.2.6"
     },
-    "description": "On demand Fuel Delivery App",
     "main": "app.js",
     "devDependencies": {
         "husky": "^0.13.3",
@@ -51,6 +50,5 @@
         "pre-commit": "^1.2.2",
         "prettier": "^1.2.2"
     },
-    "author": "RapidBiz Apps",
     "license": "UNLICENSED"
 }
